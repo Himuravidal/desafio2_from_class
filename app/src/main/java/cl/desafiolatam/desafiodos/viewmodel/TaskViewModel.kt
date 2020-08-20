@@ -3,7 +3,6 @@ package cl.desafiolatam.desafiodos.viewmodel
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cl.desafiolatam.desafiodos.model.Task
 import cl.desafiolatam.desafiodos.model.TaskRepository

@@ -9,7 +9,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,14 +29,15 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         setUpViews()
-        taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+
         taskViewModel.allTask.observe(this, Observer {
             adapter.updateData(it)
         })
-        
+
     }
 
 
@@ -97,6 +97,8 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
                     dialog: DialogInterface, _: Int ->
                 if (taskText.text?.isNotEmpty()!!) {
                     //Completar para agregar una tarea a la base de datos
+                    val task = Task(0, taskText.text.toString())
+                    taskViewModel.insert(task)
                 }
             }
         dialogBuilder.create().show()
