@@ -63,8 +63,9 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
         list.adapter = adapter
     }
 
-    private fun updateEntity(taskItem: TaskUIDataHolder, newText: String) {
-        //completar método para actualizar una tarea en la base de datos
+    private fun updateEntity(taskItem: Task, newText: String) {
+             taskItem.text = newText
+            taskViewModel.update(taskItem)
     }
 
     override fun onItemClick(taskItem: Task) {
@@ -80,6 +81,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
             .setPositiveButton("Editar") {
                     _: DialogInterface, _: Int ->
                 //generar código para editar/actualizar la tarea
+               updateEntity(taskItem, taskText.text.toString())
             }
         dialogBuilder.create().show()
     }
