@@ -97,6 +97,7 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
                     dialog: DialogInterface, _: Int ->
                 if (taskText.text?.isNotEmpty()!!) {
                     //Completar para agregar una tarea a la base de datos
+                    createEntity(taskText.text.toString())
                 }
             }
         dialogBuilder.create().show()
@@ -111,11 +112,14 @@ class MainActivity : AppCompatActivity(), OnItemClickListener {
                     dialog: DialogInterface, _: Int -> dialog.dismiss()}
             .setPositiveButton("Aceptar") { dialog: DialogInterface, _: Int ->
                 //Código para eliminar las tareas de la base de datos
+                taskViewModel.deleteAll()
             }
         dialog.show()
     }
     private fun createEntity(text:String) {
         //completar este método para retornar un Entity
+        var task = Task(text = text)
+        taskViewModel.insert(task)
     }
 
     private fun createEntityListFromDatabase(/* párametro de entrada*/): MutableList<TaskUIDataHolder> {

@@ -33,4 +33,8 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         repository.delete(task)
     }
 
+    fun deleteAll() = viewModelScope.launch {
+        repository.deleteAll()
+    }
+
 }
